@@ -1,4 +1,4 @@
-{ :"fr-FR" => {
+{ :"fr" => {
   :countries => {
     :AD => "Andorre",
     :AE => "Émirats Arabes Unis",
