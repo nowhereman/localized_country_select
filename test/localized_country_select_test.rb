@@ -1,3 +1,7 @@
+#TODO support activesupport and action pack 2.3.x
+gem 'activesupport', '=2.2.2'
+gem 'actionpack', '=2.2.2'
+
 require 'test/unit'
 
 require 'rubygems'
@@ -57,6 +61,8 @@ class LocalizedCountrySelectTest < Test::Unit::TestCase
     assert_equal 'Spain', I18n.t('ES', :scope => 'countries')
     I18n.locale = 'cz'
     assert_equal 'Španělsko', I18n.t('ES', :scope => 'countries')
+    I18n.locale = 'fr'
+    assert_equal 'Espagne', I18n.t('ES', :scope => 'countries')
   end
 
   def test_localized_countries_array_returns_correctly
@@ -68,6 +74,9 @@ class LocalizedCountrySelectTest < Test::Unit::TestCase
     I18n.locale = 'cz'
     assert_equal 250, LocalizedCountrySelect::localized_countries_array.size
     assert_equal 'Afghánistán', LocalizedCountrySelect::localized_countries_array.first[0]
+    I18n.locale = 'fr'
+    assert_equal 247, LocalizedCountrySelect::localized_countries_array.size
+    assert_equal 'Afghanistan', LocalizedCountrySelect::localized_countries_array.first[0]
   end
 
   def test_priority_countries_returns_correctly_and_in_correct_order
@@ -79,7 +88,7 @@ class LocalizedCountrySelectTest < Test::Unit::TestCase
   private
 
   def setup
-    ['cz', 'en'].each do |locale|
+    ['cz', 'en', 'fr'].each do |locale|
       # I18n.load_translations( File.join(File.dirname(__FILE__), '..', 'locale', "#{locale}.rb")  )  # <-- Old style! :)
       I18n.load_path += Dir[ File.join(File.dirname(__FILE__), '..', 'locale', "#{locale}.{rb,yml}") ]
     end
